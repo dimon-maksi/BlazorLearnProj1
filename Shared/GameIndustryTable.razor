@@ -8,14 +8,26 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var game in games)
+			@if (games == null)
 			{
+				<tr>Searching datas...</tr>
+			}
+			else if(games.Count == 0)
+			{
+				<tr>No datas(</tr>
+			}
+			else
+			{
+				@foreach (var game in games)
+				{
 					<tr>
 						<td>@game.Name</td>
 						<td>@game.Genre</td>
-						<td>@game.ReleaseDate.ToString("dd.M.yyyy")</td>
+						<td>@game.ReleaseDate.ToString("dd.MM.yyyy")</td>
 					</tr>
+				}
 			}
+			
 		</tbody>
 	</table>
 </div>
@@ -25,6 +37,7 @@
 
 	protected async override Task OnInitializedAsync()
 	{
+		await Task.Delay(1300);
 		games = new List<Game>()
 		{
 			new Game()
