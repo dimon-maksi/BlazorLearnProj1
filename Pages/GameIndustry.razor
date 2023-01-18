@@ -12,4 +12,33 @@
 	</div>
 </div>
 
-<GameIndustryTable />
+<GameIndustryTable Games="games" />
+
+@code{
+	private List<Game> games;
+
+	protected override void OnInitialized()
+	{
+		games = new List<Game>()
+		{
+			new Game()
+			{
+				Name = "AAA",
+				Genre = "aaa",
+				ReleaseDate = new DateTime(2021, 11, 11)
+			},
+			new Game()
+			{
+				Name = "BBB",
+				Genre = "bbb",
+				ReleaseDate = new DateTime(2011, 9, 11)
+			},
+			new Game()
+			{
+				Name = "CCC",
+				Genre = "ccc",
+				ReleaseDate = new DateTime(2001, 7, 11)
+			}
+		};
+	}
+}

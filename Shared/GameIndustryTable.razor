@@ -5,26 +5,31 @@
 				<th>Name</th>
 				<th>Genre</th>
 				<th>Release Date</th>
+				<th>
+					<input type="checkbox" @onchange="(() => displayButtons = !displayButtons)"/>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
-			@if (games == null)
+			@if (Games == null)
 			{
 				<tr>Searching datas...</tr>
 			}
-			else if(games.Count == 0)
+			else if(Games.Count == 0)
 			{
 				<tr>No datas(</tr>
 			}
 			else
 			{
-				@foreach (var game in games)
+				@foreach (var game in Games)
 				{
-					<tr>
+					@*<tr>
 						<td>@game.Name</td>
 						<td>@game.Genre</td>
 						<td>@game.ReleaseDate.ToString("dd.MM.yyyy")</td>
-					</tr>
+					</tr>*@
+
+							<IndividualGame Game="game" IsTable=true DisplayButtons=displayButtons/>
 				}
 			}
 			
@@ -33,31 +38,6 @@
 </div>
 
 @code {
-	private List<Game> games { get; set; }
-
-	protected async override Task OnInitializedAsync()
-	{
-		await Task.Delay(1300);
-		games = new List<Game>()
-		{
-			new Game()
-			{
-				Name = "AAA",
-				Genre = "aaa",
-				ReleaseDate = new DateTime(2021, 11, 11)
-			},
-			new Game()
-			{
-				Name = "BBB",
-				Genre = "bbb",
-				ReleaseDate = new DateTime(2011, 9, 11)
-			},
-			new Game()
-			{
-				Name = "CCC",
-				Genre = "ccc",
-				ReleaseDate = new DateTime(2001, 7, 11)
-			}
-		};
-	}
+	[Parameter]public List<Game> Games { get; set; }
+	private bool displayButtons = false;
 }
