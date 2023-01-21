@@ -7,6 +7,7 @@
 				<th>Release Date</th>
 				<th>
 					<input type="checkbox" @onchange="(() => displayButtons = !displayButtons)"/>
+					<input type="checkbox" @bind="displayButtons"/>
 				</th>
 			</tr>
 		</thead>
@@ -29,7 +30,7 @@
 						<td>@game.ReleaseDate.ToString("dd.MM.yyyy")</td>
 					</tr>*@
 
-							<IndividualGame Game="game" IsTable=true DisplayButtons=displayButtons/>
+					<IndividualGame Game="game" IsTable=true DisplayButtons=displayButtons DeleteGame="DeleteTheGame"/>
 				}
 			}
 			
@@ -40,4 +41,9 @@
 @code {
 	[Parameter]public List<Game> Games { get; set; }
 	private bool displayButtons = false;
+
+	void DeleteTheGame(Game game)
+	{
+		Games.Remove(game);
+	}
 }

@@ -14,8 +14,12 @@
 
 <GameIndustryTable Games="games" />
 
+<IndividualGame Game="oneGameToShow" IsTable=false DisplayButtons=true SwitchGame="ShowNewGame"/>
+
 @code{
 	private List<Game> games;
+	private Random random;
+	private Game oneGameToShow;
 
 	protected override void OnInitialized()
 	{
@@ -40,5 +44,34 @@
 				ReleaseDate = new DateTime(2001, 7, 11)
 			}
 		};
+
+		random = new Random(DateTime.Now.Microsecond);
+		oneGameToShow = games[random.Next(0, games.Count())];
+	}
+
+	void ShowNewGame()
+	{
+		oneGameToShow = SwitchGame();
+	}
+
+	Game SwitchGame()
+	{
+		Game tempGame;
+
+		if (games.Count >= 2)
+		{
+			int i = random.Next(0, games.Count());
+			tempGame = games[i];
+		}
+		else if (games.Count == 1)
+		{
+			tempGame = games[0];
+		}
+		else
+		{
+			return new Game() { Name = "No items in array!", ReleaseDate = DateTime.Now};
+		}
+
+		return tempGame;
 	}
 }
